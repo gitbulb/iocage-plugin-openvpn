@@ -1,0 +1,169 @@
+{
+	"servicerestart":"service openvpn restart",
+	"serviceget": "/usr/local/bin/pluginget.sh",
+	"serviceset": "/usr/local/bin/pluginset.sh",
+	"options": {
+		"easyrsa_req_country": {
+			"type": "string",
+			"name": "Country code",
+			"description": "Default Country code in certificate requests"
+		},
+		"easyrsa_req_province": {
+			"type": "string",
+			"name": "Province",
+			"description": "Default Province in certificate requests"
+		},
+		"easyrsa_req_city": {
+			"type": "string",
+			"name": "City",
+			"description": "Default City in certificate requests"
+		},
+		"easyrsa_req_org": {
+			"type": "string",
+			"name": "Organization name",
+			"description": "Default Organization name in certificate requests"
+		},
+		"easyrsa_req_email": {
+			"type": "string",
+			"name": "Email",
+			"description": "Default Email in certificate requests"
+		},
+		"easyrsa_req_ou": {
+			"type": "string",
+			"name": "Organizational unit",
+			"description": "Default Organizational unit in certificate requests"
+		},
+		"easyrsa_key_size": {
+			"type": "int",
+			"name": "Key size",
+			"description": "Key size in bits for your keypairs",
+      "default": "2048"
+		},
+		"easyrsa_ca_expire": {
+			"type": "int",
+			"name": "CA expire days",
+			"description": "Days until CA expire date",
+      "default": "3650"
+		},
+		"easyrsa_cert_expire": {
+			"type": "int",
+			"name": "Certificate expire date",
+			"description": "Days until Certificate expire date",
+      "default": "3650"
+		},
+		"ca_key_passphrase": {
+			"type": "string",
+			"name": "CA Passphrase",
+			"description": "Passphrase of CA private key"
+		},
+		"ca_common_name": {
+			"type": "string",
+			"name": "Common name",
+			"description": "Common name of CA"
+		},
+		"server_common_name": {
+			"type": "string",
+			"name": "Server Common name",
+			"description": "Common name of server, as used in server certificate and OpenVPN server configuration"
+		},
+		"server_fqdn": {
+			"type": "string",
+			"name": "Server fqdn",
+			"description": "Fully qualified domain name of server, used only in client configuration"
+		},
+		"server_public_port": {
+			"type": "int",
+			"name": "Server public port",
+			"description": "Public IP port of server, used only in client configuration"
+		},
+		"server_local_port": {
+			"type": "int",
+			"name": "Server local port",
+			"description": "Local IP port of server, used only in server configuration"
+		},
+		"server_port_type": {
+			"type": "combo",
+			"name": "Server port type",
+			"description": "TCP or UDP port type, used by client to connect with server",
+      "options": {
+        "udp": "Use UDP",
+        "tcp": "Use TCP"
+      }
+		},
+		"private_network": {
+			"type": "string",
+			"name": "Private network",
+			"description": "Private network where the server resides and the clients want to connect to, used only in server configuration"
+		},
+		"nat_network_cidr": {
+			"type": "string",
+			"name": "NAT network CIDR notation",
+			"description": "Network between client and private network, managed (NAT) by ipfw, MUST MATCH nat_network (different notation), used only in firewall (NAT) configuration"
+		},
+		"nat_network": {
+			"type": "string",
+			"name": "NAT network",
+			"description": "Network between client and private network, managed (NAT) by ipfw, MUST MATCH nat_network_cidr (different notation), used only in server configuration"
+		},
+    "a_client_common_name": {
+    	"type": "string",
+			"name": "Client Common name",
+			"description": "Common name of a client, as used in client certificate and configuration"
+    },
+    "a_client_key_passphrase": {
+      "type": "string",
+			"name": "Client Passphrase",
+			"description": "Passphrase of client private key"
+    },
+    "addclient": {
+      "type": "add",
+      "name": "Add Client",
+      "description": "Create a new certificate set for this client",
+      "requiredargs": {
+        "commonname": {
+          "type": "string",
+          "description": "Name of the client"
+        },
+        "keypassphrase": {
+          "type": "password",
+          "description": "Passphrase for the client certificate"
+        }
+      },
+      "optionalargs": {
+        "server_fqdn": {
+          "type": "string",
+          "description": "Fully qualified domain name of server, used only in client configuration"
+        },
+        "server_public_port": {
+          "type": "string",
+          "description": "Public IP port of server"
+        },
+        "server_port_type": {
+          "type": "combo",
+          "description": "TCP or UDP port type, used by client to connect with server",
+          "options": {
+            "udp": "Use UDP",
+            "tcp": "Use TCP"
+          }
+        }
+      }
+    },
+    "service": {
+      "type": "service",
+      "name": "Service Management",
+      "description": "Service Management",
+      "requiredargs": {
+        "action": {
+          "type": "combo",
+          "description": "Service action",
+          "options": {
+            "restart_openvpn": "Restart OpenVPN",
+            "restart_firewall": "Restart Firewall/NAT",
+            "apply_config": "Apply changes to configurations without rebuilding certificates (and passphrases!)",
+            "rebuild_all": "Rebuild server configuration, root, server and default client certificates. Destroys and invalidates all issued certificates."
+          }
+        }
+      }
+    }
+  }
+}

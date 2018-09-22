@@ -1,0 +1,22 @@
+ca_key_passphrase="Password1"
+ca_common_name="OpenVPN FreeNAS CA"
+easyrsa_req_country="US"
+easyrsa_req_province="California"
+easyrsa_req_city="San Francisco"
+easyrsa_req_org="Copyleft Certificate Co"
+easyrsa_req_email="me@mydomain.com"
+easyrsa_req_ou="My Organizational Unit"
+easyrsa_key_size=2048
+easyrsa_ca_expire=3650
+easyrsa_cert_expire=3650
+server_common_name="openvpn-server"
+server_local_port=1194
+server_port_type="udp"
+private_network="192.168.1.0 255.255.255.0"
+nat_network_cidr="10.8.0.0/24"
+nat_network="10.8.0.0 255.255.255.0"
+
+a_client_common_name="a_client"
+a_client_key_passphrase="Password2"
+server_fqdn="nas.mydomain.com"
+server_public_port=443
